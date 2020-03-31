@@ -21,17 +21,31 @@
   </header>
   <div class="container">
     <!-- Timeblocks go here -->
+    <div class="row">
+      <textarea id="textarea" placeholder="Enter itinerary here" class="col-md-11"></textarea>
+      <button type="submit" value="Save" class="saveBtn">Save</button>
+    </div>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script>
-
+    var scheduleInput = document.querySelectorAll("#textarea");
     var dateTime = document.getElementById("currentDay");
+    var save = document.querySelectorAll(".saveBtn")
 
+    var storage = window.localStorage;
+
+    //Set date at top of screen
     var d = new Date();
 
     dateTime.innerHTML = (d.getUTCMonth() + 1) + "/" + d.getUTCDate() + "/" + d.getUTCFullYear();
+
+    //Put textarea into local storage DEBUG!!
+    $(save).on("click", function () {
+      scheduleInput.setItems("input", "scheduledItems");
+    });
+
 
   </script>
 
