@@ -26,25 +26,23 @@
       <th scope="col">Schedule Plans</th>
       <th scope="col">Save</th>
     </thead>
-  
-  <tbody>
-    
-  </tbody>
-</table>
+
+    <tbody>
+
+    </tbody>
+  </table>
 
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script>
-    var scheduleInput = document.querySelectorAll("#textarea");
+
     var dateTime = document.getElementById("currentDay");
-    var save = document.querySelectorAll(".saveBtn")
-
-    var storage = window.localStorage;
-
+    var textInput = document.querySelectorAll("textarea");
+    var inputArr = []
     //Set date at top of screen
     var d = new Date();
 
-    dateTime.innerHTML = (d.getUTCMonth() + 1) + "/" + d.getUTCDate() + "/" + d.getUTCFullYear();
+    dateTime.innerHTML = (d.getMonth() + 1) + "/" + (d.getDate() + 1) + "/" + d.getFullYear();
 
     //Creating text
     for (var i = 0; i < 24; i++) {
@@ -62,25 +60,44 @@
       }
     }
 
+    lastRendered();
+
     function printTime() {
       $("tbody").append(
-       `<tr>
+        `<tr>
        <td>${hour + amPM}</td>
-       <td><textarea id="input"></textarea></td>
-       <td><button class ="saveBtn">Save</button>
+       <td><textarea id="textarea${i}"></textarea></td>
+       <td><button id ="${i}" onClick="reply_click(this.id)">Save</button>
        </tr>`
       )
     }
 
+    function lastRendered() {
+      var history = JSON.parse(localStorage.getItem("input"))
+
+      for (var i = 0; i < 24; i++) {
+        var textBox = document.querySelector(`#textarea${i}`);
+
+        textBox.innerHTML = history[i]
+      }
+    }
 
 
-    //Put textarea into local storage DEBUG!!
-    $(".saveBtn").on("click", function () {
-      var input = document.querySelectorAll("textarea");
-      input = JSON.stringify(input);
-      localStorage.setItem("server", input);
-      console.log(localStorage.getItem("server"))
-    });
+    function reply_click(clicked) {
+      event.preventDefault();
+      var buttonId = clicked;
+
+
+      text = ($(`#textarea${buttonId}`).val())
+
+      inputArr[buttonId] = text;
+
+      console.log(inputArr)
+      localStorage.setItem("input", JSON.stringify(inputArr))
+
+      lastRendered(localStorage);
+    }
+
 
 
   </script>
