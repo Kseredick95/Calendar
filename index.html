@@ -41,6 +41,9 @@
     var inputArr = []
     //Set date at top of screen
     var d = new Date();
+    var time = d.getHours();
+
+
 
     dateTime.innerHTML = (d.getMonth() + 1) + "/" + (d.getDate() + 1) + "/" + d.getFullYear();
 
@@ -57,6 +60,16 @@
         hour = i + 1;
         amPM = "AM"
         printTime();
+      }
+
+      if (i < time) {
+        $(`#textarea${i}`).addClass("past");
+      }
+      else if (i == time) {
+        $(`#textarea${i}`).addClass("present");
+      }
+      else {
+        $(`#textarea${i}`).addClass("future");
       }
     }
 
