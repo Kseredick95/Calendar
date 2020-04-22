@@ -27,13 +27,12 @@
       <th scope="col">Save</th>
     </thead>
 
-    <tbody>
+    <tbody id = "body">
 
     </tbody>
   </table>
 
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
   <script>
 
     var dateTime = document.getElementById("currentDay");
@@ -76,12 +75,12 @@
     lastRendered();
 
     function printTime() {
-      $("tbody").append(
+      $(`#body`).append(
         `<tr>
-       <td>${hour + amPM}</td>
-       <td><textarea id="textarea${i}"></textarea></td>
-       <td><button id ="${i}" onClick="reply_click(this.id)">Save</button>
-       </tr>`
+          <td>${hour + amPM}</td>
+          <td><textarea id="textarea${i}"></textarea></td>
+          <td><button id ="${i}" onClick="reply_click(this.id)">Save</button>
+        </tr>`
       )
     }
 
@@ -91,7 +90,12 @@
       for (var i = 0; i < 24; i++) {
         var textBox = document.querySelector(`#textarea${i}`);
 
-        textBox.innerHTML = history[i]
+        if (history[i] == null){
+          textBox.innerHTML = " "
+        }
+        else{
+          textBox.innerHTML = history[i]
+        }
       }
     }
 
@@ -114,7 +118,7 @@
 
 
   </script>
-
+  
 </body>
 
 </html>
